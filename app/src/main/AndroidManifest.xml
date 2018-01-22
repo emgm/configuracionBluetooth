@@ -23,7 +23,7 @@
         </activity>
 
         <activity android:name=".ListDevices"
-            android:label="Dispositivos Disponibles"
+            android:label="Dispositivos Vinculados"
             android:theme="@android:style/Theme.Dialog">
 
         </activity>
