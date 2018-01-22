@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="emgm.configuracionbluetooth.MainActivity">
+
+    <Button
+        android:id="@+id/btnConnect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Conectar"
+        />
+
+
+    <Button
+        android:id="@+id/btnDisconnect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Desconectar"
+        />
+
+    <Button
+        android:id="@+id/btnEncenderLeds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Encender LED's"
+        />
+
+    <Button
+        android:id="@+id/btnApagarLeds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Apagar LED's"
+        />
+
+</LinearLayout>
