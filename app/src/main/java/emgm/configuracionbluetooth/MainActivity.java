@@ -216,6 +216,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             int bytes; // bytes returned from read()
 
             // Keep listening to the InputStream until an exception occurs
+            /*
             while (true) {
                 try {
                     // Read from the InputStream
@@ -226,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } catch (IOException e) {
                     break;
                 }
-            }
+            }*/
         }
 
         /* Call this from the main activity to send data to the remote device */
