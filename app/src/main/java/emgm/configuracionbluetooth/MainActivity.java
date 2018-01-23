@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     UUID MEU_UUID = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,6 +146,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cadena = cadena.replace("{","");
         cadena = cadena.replace("}","");
         cadena = cadena.trim();
+
+        if(cadena.contains("VOn")){
+
+            btnLedVerde.setText("APAGAR LED VERDE");
+
+        }else{
+
+            btnLedVerde.setText("ENCEDER LED VERDE");
+        }
+
+        if(cadena.contains("ROn")){
+
+            btnLedRojo.setText("APAGAR LED ROJO");
+
+        }else{
+
+            btnLedRojo.setText("ENCEDER LED ROJO");
+        }
 
         Toast.makeText(this, "Estado Leds: \n" + cadena, Toast.LENGTH_SHORT).show();
 
