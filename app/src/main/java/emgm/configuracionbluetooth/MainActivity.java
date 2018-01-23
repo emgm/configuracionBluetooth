@@ -22,7 +22,6 @@ import java.util.UUID;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button btnConnect, btnEncenderLeds, btnApagarLeds;
     private Button btnLedVerde, btnLedRojo;
-    private Button btnShowCadena;
 
     BluetoothAdapter mBluetoothAdapter = null; /// Adaptador
     BluetoothDevice  mBTDevice = null;
@@ -51,14 +50,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        btnShowCadena = findViewById(R.id.btnShowCadena);
-        btnShowCadena.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("Recibidos", "" + cadena);
-            }
-        });
 
         btnConnect = findViewById(R.id.btnConnect);
 
@@ -97,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void handleMessage(Message msg) {
 
-                //cadena = null;
 
                 if(msg.what == MESSAGE_READ){
 
@@ -151,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void showMsg(){
 
-        Log.d("Recibidos", "" + cadena);
+         Log.d("Recibidos", "" + cadena);
 
         cadena = cadena.replace("{","");
         cadena = cadena.replace("}","");
