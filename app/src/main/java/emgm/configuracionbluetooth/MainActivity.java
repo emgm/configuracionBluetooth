@@ -17,7 +17,7 @@ import java.io.OutputStream;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button btnConnect, btnDisconecct, btnEncenderLeds, btnApagarLeds;
+    private Button btnConnect, btnEncenderLeds, btnApagarLeds;
     private Button btnLedVerde, btnLedRojo;
 
     BluetoothAdapter mBluetoothAdapter = null; /// Adaptador
@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         btnConnect = findViewById(R.id.btnConnect);
-        btnDisconecct = findViewById(R.id.btnDisconnect);
 
         btnEncenderLeds = findViewById(R.id.btnEncenderLeds);
         btnApagarLeds = findViewById(R.id.btnApagarLeds);
@@ -54,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnLedRojo.setOnClickListener(this);
 
         btnConnect.setOnClickListener(this);
-        btnDisconecct.setOnClickListener(this);
 
         btnEncenderLeds.setOnClickListener(this);
         btnApagarLeds.setOnClickListener(this);
@@ -153,6 +151,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     try {
 
+                        connectedThread.enviarDatosArduino("ledsOff");
+
                         mBTSocket.close();
                         Toast.makeText(getApplicationContext(), "Bluetooth fue desconectado", Toast.LENGTH_SHORT).show();
 
@@ -170,10 +170,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Intent listDevices = new Intent(MainActivity.this, ListDevices.class);
                     startActivityForResult(listDevices, SOLICITA_CONEXION);
                 }
-
-                break;
-
-            case R.id.btnDisconnect:
 
                 break;
 
