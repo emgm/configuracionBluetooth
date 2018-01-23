@@ -7,6 +7,14 @@
     android:orientation="vertical"
     tools:context="emgm.configuracionbluetooth.MainActivity">
 
+
+    <Button
+        android:id="@+id/btnShowCadena"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mostrar Cadena"
+        />
+
     <Button
         android:id="@+id/btnConnect"
         android:layout_width="match_parent"

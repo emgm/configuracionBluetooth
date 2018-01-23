@@ -5,8 +5,11 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -19,13 +22,21 @@ import java.util.UUID;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button btnConnect, btnEncenderLeds, btnApagarLeds;
     private Button btnLedVerde, btnLedRojo;
+    private Button btnShowCadena;
 
     BluetoothAdapter mBluetoothAdapter = null; /// Adaptador
     BluetoothDevice  mBTDevice = null;
     BluetoothSocket  mBTSocket = null;
 
-    private static final int SOLICITA_ACTIVACION = 1;
-    private static final int SOLICITA_CONEXION = 2;
+    String cadena = "";
+
+    private static final int SOLICITA_ACTIVACION =  1;
+    private static final int SOLICITA_CONEXION   =  2;
+    private static final int MESSAGE_READ        =  3;
+
+    Handler mHandler;
+
+    StringBuilder datosBluetooth = new StringBuilder();
 
     ConnectedThread connectedThread;
 
@@ -40,6 +51,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        btnShowCadena = findViewById(R.id.btnShowCadena);
+        btnShowCadena.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Recibidos", "" + cadena);
+            }
+        });
 
         btnConnect = findViewById(R.id.btnConnect);
 
@@ -74,6 +93,73 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(getApplicationContext(), "Disponible", Toast.LENGTH_SHORT).show();
         }
 
+        mHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+
+                //cadena = null;
+
+                if(msg.what == MESSAGE_READ){
+
+                    String recibidos = (String) msg.obj;
+
+                    cadena = cadena + recibidos;
+
+                   if(cadena.contains("}")){
+
+                       showMsg();
+
+                   }
+
+                    //Log.d("Recibidos", "" + msg.obj);
+
+                   // datosBluetooth.append(recibidos);
+
+                   // Log.d("Recibidos", "" + datosBluetooth);
+
+                    /*
+                    int finInformacion = datosBluetooth.indexOf("}");
+
+
+                    if(finInformacion > 0){
+
+                        String datosCompletos = datosBluetooth.substring(0, finInformacion);
+
+                        int tamInformacion = datosCompletos.length();
+
+                        if(datosBluetooth.charAt(0) == '{'){
+
+                            //{ informacion }
+
+                            String datosFinales = datosBluetooth.substring(1, tamInformacion);
+
+                           // showMsg(datosFinales);
+
+                            //Toast.makeText(getApplicationContext(), datosFinales, Toast.LENGTH_SHORT);
+
+                        }
+
+
+                    }*/
+                }
+
+
+            }
+        };
+
+    }
+
+    public void showMsg(){
+
+        Log.d("Recibidos", "" + cadena);
+
+        cadena = cadena.replace("{","");
+        cadena = cadena.replace("}","");
+        cadena = cadena.trim();
+
+        Toast.makeText(this, "Estado Leds: \n" + cadena, Toast.LENGTH_SHORT).show();
+
+        cadena = "";
     }
 
     @Override
@@ -258,18 +344,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             int bytes; // bytes returned from read()
 
             // Keep listening to the InputStream until an exception occurs
-            /*
+
             while (true) {
                 try {
                     // Read from the InputStream
                     bytes = mmInStream.read(buffer);
+
+                    String datosBT = new String(buffer, 0, bytes);
+
                     // Send the obtained bytes to the UI activity
-                    //mHandler.obtainMessage(MESSAGE_READ, bytes, -1, buffer)
-                          //  .sendToTarget();
+                    mHandler.obtainMessage(MESSAGE_READ, bytes, -1, datosBT)
+                          .sendToTarget();
+
                 } catch (IOException e) {
                     break;
                 }
-            }*/
+            }
         }
 
         /* Call this from the main activity to send data to the remote device */
