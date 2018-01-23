@@ -29,6 +29,23 @@
         android:text="Encender LED's"
         />
 
+
+    <Button
+        android:id="@+id/btnLedVerdeOn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Encender LED Verde"
+        />
+
+    <Button
+        android:id="@+id/btnLedRojoOn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Encender LED Rojo"
+        />
+
+
+
     <Button
         android:id="@+id/btnApagarLeds"
         android:layout_width="match_parent"

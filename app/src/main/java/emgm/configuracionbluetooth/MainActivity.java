@@ -18,6 +18,7 @@ import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button btnConnect, btnDisconecct, btnEncenderLeds, btnApagarLeds;
+    private Button btnLedVerde, btnLedRojo;
 
     BluetoothAdapter mBluetoothAdapter = null; /// Adaptador
     BluetoothDevice  mBTDevice = null;
@@ -45,6 +46,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnEncenderLeds = findViewById(R.id.btnEncenderLeds);
         btnApagarLeds = findViewById(R.id.btnApagarLeds);
+
+        btnLedVerde = findViewById(R.id.btnLedVerdeOn);
+        btnLedVerde.setOnClickListener(this);
+
+        btnLedRojo = findViewById(R.id.btnLedRojoOn);
+        btnLedRojo.setOnClickListener(this);
 
         btnConnect.setOnClickListener(this);
         btnDisconecct.setOnClickListener(this);
@@ -186,6 +193,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btnApagarLeds:
 
+                if(conexionBluetooth){
+
+                    connectedThread.enviarDatosArduino("ledsOff");
+
+                }else{
+
+                    Toast.makeText(getApplicationContext(), "Bluetooth no esta conectado", Toast.LENGTH_SHORT).show();
+
+                }
+
+                break;
+
+            case R.id.btnLedVerdeOn:
+
+                if(conexionBluetooth){
+
+                    connectedThread.enviarDatosArduino("ledVerdeOn");
+
+                }else{
+
+                    Toast.makeText(getApplicationContext(), "Bluetooth no esta conectado", Toast.LENGTH_SHORT).show();
+
+                }
+
+                break;
+
+            case R.id.btnLedRojoOn:
+
+                if(conexionBluetooth){
+
+                    connectedThread.enviarDatosArduino("ledRojoOn");
+
+                }else{
+
+                    Toast.makeText(getApplicationContext(), "Bluetooth no esta conectado", Toast.LENGTH_SHORT).show();
+
+                }
+
                 break;
         }
     }
@@ -212,6 +257,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         public void run() {
+
             byte[] buffer = new byte[1024];  // buffer store for the stream
             int bytes; // bytes returned from read()
 
