@@ -20,6 +20,7 @@ import java.io.OutputStream;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
     private Button btnConnect, btnEncenderLeds, btnApagarLeds;
     private Button btnLedVerde, btnLedRojo;
 
@@ -136,7 +137,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         };
-
     }
 
     public void showMsg(){
@@ -263,6 +263,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     Intent listDevices = new Intent(MainActivity.this, ListDevices.class);
                     startActivityForResult(listDevices, SOLICITA_CONEXION);
+
                 }
 
                 break;
